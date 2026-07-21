@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import logo from "../public/logo1.jpg";
 import Profile from "../public/Profile.jpg";
+import Input from "../Components/Input";
 
 function page() {
   return (
@@ -18,12 +19,8 @@ function page() {
           Trae <span className="text-main">Coder</span>
         </h1>
       </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Search anything Globally"
-          className="w-[550px] bg-primary px-4 py-2 rounded-md"
-        />
+      <div className="w-[600px]">
+        <Input placeholder="Search anything Globally" />
       </div>
       <div>
         <Image
