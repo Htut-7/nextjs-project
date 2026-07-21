@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo1.jpg";
 import Input from "@/Components/Input";
-import AuthForm from "../Components/AuthForm";
 import Button from "../../../Components/Button";
+import AuthForm from "../Components/AuthForm";
 
 function page() {
   return (
@@ -22,14 +22,23 @@ function page() {
             perferendis nam, maiores consequuntur aut asperiores voluptatum
             fugit velit, vero voluptates aliquam tenetur possimus!
           </p>
-          <Button type="outline">Create new account?</Button>
+          <Button type="outline">Login Account?</Button>
         </div>
       </div>
       <div className="w-2/4 h-screen flex justify-center items-center">
         <div className="w-[80%] space-y-6">
           <h3 className="text-xl font-semibold">
-            Sign into Trae <span className="text-main">Coder</span> Forum
+            Sign Up to Trae <span className="text-main">Coder</span> Forum
           </h3>
+
+          <div>
+            <Input placeholder="Enter your name" label="Name" />
+          </div>
+
+          <div>
+            <Input placeholder="Enter Username" label="Username" />
+          </div>
+
           <div>
             <Input placeholder="Enter your Email" label="Email Address" />
           </div>
@@ -39,7 +48,7 @@ function page() {
           </div>
 
           <div>
-            <Button type="normal">Login</Button>
+            <Button type="normal">Register</Button>
           </div>
 
           <AuthForm />
