@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "next": "^15.5.20",
+    "next-auth": "^5.0.0-beta.32",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-icons": "^5.7.0"
