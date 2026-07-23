@@ -7,9 +7,9 @@ import { Bounce, toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 
 function AuthForm() {
-  const oAuthSignIn = async () => {
+  const oAuthSignIn = async (type: "google" | "github") => {
     try {
-      await signIn("github", {
+      await signIn(type, {
         redirectTo: "/",
       });
     } catch (e) {
@@ -32,11 +32,19 @@ function AuthForm() {
   return (
     <div>
       <div className="flex  space-x-3">
-        <Button icon={Google} variant="outline">
+        <Button
+          icon={Google}
+          variant="outline"
+          onClick={() => oAuthSignIn("google")}
+        >
           Login with Google
         </Button>
 
-        <Button icon={Github} variant="outline" onClick={oAuthSignIn}>
+        <Button
+          icon={Github}
+          variant="outline"
+          onClick={() => oAuthSignIn("github")}
+        >
           Login with Github
         </Button>
       </div>
