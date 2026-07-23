@@ -5,17 +5,19 @@ import Google from "@/public/google.webp";
 function Button({
   icon,
   children,
-  type = "normal",
+  variant = "normal",
+  ...props
 }: {
   icon?: string | StaticImageData;
   children: React.ReactNode;
-  type?: "normal" | "outline";
-}) {
+  variant?: "normal" | "outline";
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <div>
       <button
+        {...props}
         className={` space-x-3   px-4 py-2 rounded-md w-full ${
-          type === "outline" ? "border-2 border-main" : "bg-main"
+          variant === "outline" ? "border-2 border-main" : "bg-main"
         }
         ${icon ? "flex items-center" : ""}
         `}
