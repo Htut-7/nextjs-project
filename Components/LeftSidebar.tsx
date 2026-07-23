@@ -4,62 +4,58 @@ import { FaHome, FaSignOutAlt } from "react-icons/fa";
 
 function LeftSidebar() {
   return (
-    <div className="flex">
-      <div className="w-1/5 px-5 py-2">
-        <ul className="space-y-6">
-          <li className="bg-main px-3 py-3 rounded-xl">
-            <Link
-              href="/"
-              className="text-[16px] font-bold flex items-center space-x-3.5"
-            >
-              <FaHome />
-              <span>Home</span>
-            </Link>
-          </li>
+    <div className="w-1/5 px-5 py-2">
+      <ul className="space-y-6">
+        <li className="bg-main px-3 py-3 rounded-xl">
+          <Link
+            href="/"
+            className="text-[16px] font-bold flex items-center space-x-3.5"
+          >
+            <FaHome />
+            <span>Home</span>
+          </Link>
+        </li>
 
-          <li className="bg-primary px-3 py-3 rounded-xl">
-            <Link
-              href="/"
-              className="text-[16px] font-bold flex items-center space-x-3.5"
-            >
-              <FaHome />
-              <span>Newest</span>
-            </Link>
-          </li>
+        <li className="bg-primary px-3 py-3 rounded-xl">
+          <Link
+            href="/"
+            className="text-[16px] font-bold flex items-center space-x-3.5"
+          >
+            <FaHome />
+            <span>Newest</span>
+          </Link>
+        </li>
 
-          <li className="bg-main px-3 py-3 rounded-xl">
-            <Link
-              href="/"
-              className="text-[16px] font-bold flex items-center space-x-3.5"
-            >
-              <FaHome />
-              <span>Ask a new question</span>
-            </Link>
-          </li>
+        <li className="bg-main px-3 py-3 rounded-xl">
+          <Link
+            href="/question"
+            className="text-[16px] font-bold flex items-center space-x-3.5"
+          >
+            <FaHome />
+            <span>Ask a new question</span>
+          </Link>
+        </li>
 
-          <li className="bg-main px-3 py-3 rounded-xl">
-            <Link
-              href="/"
-              className="text-[16px] font-bold flex items-center space-x-3.5"
-            >
-              <FaHome />
-              <span>Popular</span>
-            </Link>
-          </li>
+        <li className="bg-main px-3 py-3 rounded-xl">
+          <Link
+            href="/"
+            className="text-[16px] font-bold flex items-center space-x-3.5"
+          >
+            <FaHome />
+            <span>Popular</span>
+          </Link>
+        </li>
 
-          <li className="bg-red-500 px-3 py-3 rounded-xl">
-            <Link
-              href="/"
-              className="text-[16px] font-bold flex items-center space-x-3.5"
-            >
-              <FaSignOutAlt />
-              <span>Logout</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div className="w-3/5">2</div>
-      <div className="w-1/5">3</div>
+        <li className="bg-red-500 px-3 py-3 rounded-xl">
+          <Link
+            href="/"
+            className="text-[16px] font-bold flex items-center space-x-3.5"
+          >
+            <FaSignOutAlt />
+            <span>Logout</span>
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }
