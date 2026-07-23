@@ -22,7 +22,7 @@ function page() {
             perferendis nam, maiores consequuntur aut asperiores voluptatum
             fugit velit, vero voluptates aliquam tenetur possimus!
           </p>
-          <Button type="outline">Login Account?</Button>
+          <Button variant="outline">Login Account?</Button>
         </div>
       </div>
       <div className="w-2/4 h-screen flex justify-center items-center">
@@ -48,7 +48,7 @@ function page() {
           </div>
 
           <div>
-            <Button type="normal">Register</Button>
+            <Button variant="normal">Register</Button>
           </div>
 
           <AuthForm />

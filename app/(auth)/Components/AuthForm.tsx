@@ -5,12 +5,13 @@ import Google from "@/public/google.webp";
 import Github from "@/public/github.jpg";
 import { Bounce, toast } from "react-toastify";
 import { signIn } from "next-auth/react";
+import ROUTES from "@/ROUTES";
 
 function AuthForm() {
   const oAuthSignIn = async (type: "google" | "github") => {
     try {
       await signIn(type, {
-        redirectTo: "/",
+        redirectTo: ROUTES.HOME,
       });
     } catch (e) {
       if (e instanceof Error) {

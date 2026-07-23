@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FaHome, FaSignOutAlt } from "react-icons/fa";
+import ROUTES from "@/ROUTES";
 
 function LeftSidebar() {
   return (
@@ -8,7 +9,7 @@ function LeftSidebar() {
       <ul className="space-y-6">
         <li className="bg-main px-3 py-3 rounded-xl">
           <Link
-            href="/"
+            href={ROUTES.HOME}
             className="text-[16px] font-bold flex items-center space-x-3.5"
           >
             <FaHome />
@@ -18,7 +19,7 @@ function LeftSidebar() {
 
         <li className="bg-primary px-3 py-3 rounded-xl">
           <Link
-            href="/"
+            href={ROUTES.QUESTIONS}
             className="text-[16px] font-bold flex items-center space-x-3.5"
           >
             <FaHome />
@@ -28,7 +29,7 @@ function LeftSidebar() {
 
         <li className="bg-main px-3 py-3 rounded-xl">
           <Link
-            href="/question"
+            href={ROUTES.QUESTIONS}
             className="text-[16px] font-bold flex items-center space-x-3.5"
           >
             <FaHome />
@@ -38,7 +39,7 @@ function LeftSidebar() {
 
         <li className="bg-main px-3 py-3 rounded-xl">
           <Link
-            href="/"
+            href={ROUTES.QUESTIONS}
             className="text-[16px] font-bold flex items-center space-x-3.5"
           >
             <FaHome />
@@ -48,7 +49,7 @@ function LeftSidebar() {
 
         <li className="bg-red-500 px-3 py-3 rounded-xl">
           <Link
-            href="/"
+            href={ROUTES.QUESTIONS}
             className="text-[16px] font-bold flex items-center space-x-3.5"
           >
             <FaSignOutAlt />
