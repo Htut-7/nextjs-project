@@ -4,10 +4,15 @@ import LeftSidebar from "../../Components/LeftSidebar";
 import { FaHome, FaSignOutAlt } from "react-icons/fa";
 import { auth } from "@/auth";
 
-async function page() {
+async function page({
+  searchParams,
+}: {
+  searchParams: Promise<{ search: string | undefined }>;
+}) {
   const session = await auth();
+  const { search } = await searchParams;
   console.log(session);
-  return <>{session?.user?.name}</>;
+  return <>{search}</>;
 }
 
 export default page;

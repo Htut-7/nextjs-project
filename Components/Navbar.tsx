@@ -3,6 +3,7 @@ import Image from "next/image";
 import logo from "../public/logo1.jpg";
 import Profile from "../public/Profile.jpg";
 import Input from "../Components/Input";
+import SearchInput from "./SearchInput";
 
 function page() {
   return (
@@ -20,7 +21,7 @@ function page() {
         </h1>
       </div>
       <div className="w-[600px]">
-        <Input placeholder="Search anything Globally" />
+        <SearchInput />
       </div>
       <div>
         <Image
