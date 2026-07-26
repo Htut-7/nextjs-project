@@ -10,7 +10,7 @@ function SearchInput() {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const router = useRouter();
-  const [searchDebounced] = useDebounce(search, 3000);
+  const [searchDebounced] = useDebounce(search, 300);
 
   useEffect(() => {
     const currentQuery = queryString.parse(window.location.search);
