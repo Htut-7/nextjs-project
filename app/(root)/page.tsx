@@ -3,16 +3,24 @@ import Navbar from "../../Components/Navbar";
 import LeftSidebar from "../../Components/LeftSidebar";
 import { FaHome, FaSignOutAlt } from "react-icons/fa";
 import { auth } from "@/auth";
+import Filters from "@/Components/Filters";
 
 async function page({
   searchParams,
 }: {
-  searchParams: Promise<{ search: string | undefined }>;
+  searchParams: Promise<{
+    search: string | undefined;
+    filter: string | undefined;
+  }>;
 }) {
   const session = await auth();
-  const { search } = await searchParams;
+  const { search, filter } = await searchParams;
   console.log(session);
-  return <>{search}</>;
+  return (
+    <>
+      <Filters />
+    </>
+  );
 }
 
 export default page;

@@ -15,10 +15,13 @@ function SearchInput() {
   useEffect(() => {
     const currentQuery = queryString.parse(window.location.search);
     const updatedQuery = { ...currentQuery, search: searchDebounced };
-    const url = queryString.stringifyUrl({
-      url: window.location.pathname,
-      query: updatedQuery,
-    });
+    const url = queryString.stringifyUrl(
+      {
+        url: window.location.pathname,
+        query: updatedQuery,
+      },
+      { skipEmptyString: true, skipNull: true }
+    );
     router.push(url);
   }, [searchDebounced, router]);
 
