@@ -4,6 +4,8 @@ import LeftSidebar from "../../Components/LeftSidebar";
 import { FaHome, FaSignOutAlt } from "react-icons/fa";
 import { auth } from "@/auth";
 import Filters from "@/Components/Filters";
+import Button from "@/Components/Button";
+import ThreadCard from "@/Components/ThreadCard";
 
 async function page({
   searchParams,
@@ -18,7 +20,16 @@ async function page({
   console.log(session);
   return (
     <>
+      <div className="flex justify-between items-center p-5">
+        <div className="text-3xl font-bold">
+          <h1>All Threads</h1>
+        </div>
+        <div>
+          <Button>Create New Thread</Button>
+        </div>
+      </div>
       <Filters />
+      <ThreadCard />
     </>
   );
 }
