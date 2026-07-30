@@ -16,7 +16,7 @@ function Button({
     <div>
       <button
         {...props}
-        className={` space-x-3   px-4 py-2 rounded-md w-full ${
+        className={` space-x-3  my-5 px-4 py-2 rounded-md w-full ${
           variant === "outline" ? "border-2 border-main" : "bg-main"
         }
         ${icon ? "flex items-center" : ""}
