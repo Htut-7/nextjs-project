@@ -5,25 +5,15 @@ import Profile from "@/public/Profile.jpg";
 import { AiFillLike } from "react-icons/ai";
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa6";
+import TagCard from "./TagCard";
 
 function ThreadCard() {
   return (
     <div className="px-10 py-5 rounded-xl bg-card space-y-8">
       <h1 className="text-xl font-bold">What is React Js? How does it work?</h1>
-      <div className="space-x-4">
-        <Link
-          href={"/?filter" + "react"}
-          className={`px-4 py-2 rounded-xl w-[100px] text-gray-300 bg-tertiary`}
-        >
-          React
-        </Link>
-
-        <Link
-          href={"/?filter" + "vue"}
-          className={`px-4 py-2 rounded-xl w-[100px] text-gray-300 bg-tertiary`}
-        >
-          Vue
-        </Link>
+      <div className="flex flex-wrap gap-3">
+        <TagCard href="/filters/react">React</TagCard>
+        <TagCard href="/filters/vue">Vue</TagCard>
       </div>
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-3 text-gray-300 text-[14px]">

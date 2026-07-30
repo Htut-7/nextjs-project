@@ -4,8 +4,9 @@ import LeftSidebar from "../../Components/LeftSidebar";
 import { FaHome, FaSignOutAlt } from "react-icons/fa";
 import { auth } from "@/auth";
 import Filters from "@/Components/Filters";
-import Button from "@/Components/Button";
 import ThreadCard from "@/Components/ThreadCard";
+import ButtonLink from "@/Components/ButtonLink";
+import ROUTES from "@/ROUTES";
 
 async function page({
   searchParams,
@@ -25,7 +26,7 @@ async function page({
           <h1>All Threads</h1>
         </div>
         <div>
-          <Button>Create New Thread</Button>
+          <ButtonLink href={ROUTES.ASK}>Create New Thread</ButtonLink>
         </div>
       </div>
       <Filters />
