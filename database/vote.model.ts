@@ -34,7 +34,7 @@ const voteSchema = new Schema(
   { timestamps: true }
 );
 
-voteSchema.index({ author: 1, type_id: 1 }, { unique: true });
+voteSchema.index({ author: 1, type_id: 1, type: 1 }, { unique: true });
 
 const Vote = models?.Votes || model<Ivote>("Votes", voteSchema);
 export default Vote;
