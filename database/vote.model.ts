@@ -13,21 +13,21 @@ const voteSchema = new Schema(
   {
     author: {
       type: Schema.Types.ObjectId,
-      require: true,
+      required: true,
       ref: "Users",
     },
     type_id: {
       type: Schema.Types.ObjectId,
-      require: true,
+      required: true,
     },
     type: {
       type: String,
-      require: true,
+      required: true,
       enum: ["question", "answer"],
     },
     votetype: {
       type: String,
-      require: true,
+      required: true,
       enum: ["upvote", "downvote"],
     },
   },

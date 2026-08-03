@@ -14,17 +14,17 @@ const answerSchema = new Schema(
   {
     author: {
       type: Schema.Types.ObjectId,
-      require: true,
+      required: true,
       ref: "Users",
     },
     question: {
       type: Schema.Types.ObjectId,
-      require: true,
+      required: true,
       ref: "Question",
     },
     content: {
       type: String,
-      require: true,
+      required: true,
     },
     upvotes: {
       type: Number,

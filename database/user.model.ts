@@ -17,15 +17,15 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     UserName: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
     bio: {
@@ -33,7 +33,7 @@ const userSchema = new Schema(
     },
     image: {
       type: String,
-      require: true,
+      required: true,
     },
     location: {
       type: String,

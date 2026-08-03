@@ -10,12 +10,12 @@ export interface ItagQuestionDoc extends ItagQuestion, Document {}
 const tagQuestionSchema = new Schema({
   tag: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
     ref: "Tag",
   },
   question: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
     ref: "Question",
   },
 });
