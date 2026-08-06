@@ -1,32 +1,17 @@
 import dbConnect from "@/Components/lib/dbconnect";
 import User from "@/database/user.model";
-import { NextResponse } from "next/server";
+import {
+  handleErrorResponse,
+  handleSuccessResponse,
+} from "@/Components/lib/response";
 
 export async function GET() {
-  console.log("API route hit");
-
   try {
     await dbConnect();
     const users = await User.find();
-
-    return NextResponse.json(
-      {
-        data: users,
-        success: true,
-      },
-      { status: 200 }
-    );
+    return handleSuccessResponse(users);
   } catch (e) {
-    console.error("FULL ERROR:");
-    console.error(e);
-
-    return NextResponse.json(
-      {
-        message: e instanceof Error ? e.message : "Something went wrong",
-        success: false,
-      },
-      { status: 500 }
-    );
+    return handleErrorResponse(e);
   }
 }
 
@@ -43,23 +28,8 @@ export async function POST(request: Request) {
 
     const newUser = await User.create(body);
 
-    return NextResponse.json(
-      {
-        data: newUser,
-        success: true,
-        status: 201,
-      },
-      { status: 201 }
-    );
+    return handleSuccessResponse(newUser, 201);
   } catch (e: unknown) {
-    return NextResponse.json(
-      {
-        message: e instanceof Error ? e.message : "Something went Wrong",
-        success: false,
-      },
-      {
-        status: 500,
-      }
-    );
+    return handleErrorResponse(e);
   }
 }
