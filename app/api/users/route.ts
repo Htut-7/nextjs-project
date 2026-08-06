@@ -3,9 +3,12 @@ import User from "@/database/user.model";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+  console.log("API route hit");
+
   try {
     await dbConnect();
-    const users = User.find();
+    const users = await User.find();
+
     return NextResponse.json(
       {
         data: users,
