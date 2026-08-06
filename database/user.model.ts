@@ -2,7 +2,7 @@ import { model, Schema, Document, models } from "mongoose";
 
 export interface Iuser {
   name: string;
-  UserName: string;
+  username: string;
   email: string;
   bio?: string;
   Image: string;
@@ -19,7 +19,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    UserName: {
+    username: {
       type: String,
       required: true,
     },
