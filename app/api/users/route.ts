@@ -4,6 +4,8 @@ import {
   handleErrorResponse,
   handleSuccessResponse,
 } from "@/Components/lib/response";
+import validatebody from "@/Components/lib/validateBodyTemp";
+import UserSchema from "@/Components/lib/schema/UserSchema";
 
 export async function GET() {
   try {
@@ -19,6 +21,8 @@ export async function POST(request: Request) {
   try {
     await dbConnect();
     let body = await request.json();
+
+    validatebody(body, UserSchema);
 
     const existingEmail = await User.findOne({ email: body.email });
     if (existingEmail) throw new Error("Email already exists");
