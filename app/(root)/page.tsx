@@ -7,6 +7,7 @@ import Filters from "@/Components/Filters";
 import ThreadCard from "@/Components/ThreadCard";
 import ButtonLink from "@/Components/ButtonLink";
 import ROUTES from "@/ROUTES";
+import fetchHandler from "@/Components/lib/fetchHandler";
 
 async function page({
   searchParams,
@@ -18,7 +19,8 @@ async function page({
 }) {
   const session = await auth();
   const { search, filter } = await searchParams;
-  console.log(session);
+  // const response = await fetchHandler("http://localhost:3000/api/users");
+  // console.log(response);
   return (
     <>
       <div className="flex justify-between items-center p-5">
