@@ -83,4 +83,25 @@ export const api = {
         method: "DELETE",
       }),
   },
+
+  auth: {
+    oauthSignIn: ({
+      provider,
+      providerAccountId,
+      user,
+    }: {
+      provider: string;
+      providerAccountId: string;
+      user: {
+        name: string;
+        username: string;
+        email: string;
+        image: string;
+      };
+    }) =>
+      fetchHandler(API_URL + "/auth/signin-with-oauth", {
+        method: "POST",
+        body: JSON.stringify({ provider, providerAccountId, user }),
+      }),
+  },
 };
