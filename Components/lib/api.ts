@@ -56,10 +56,10 @@ export const api = {
 
     getAccountById: (id: string) => fetchHandler(API_URL + "/accounts/" + id),
 
-    getAccountsbyProvider: (provider: string) =>
+    getAccountsbyProvider: (providerAccountId: string) =>
       fetchHandler(API_URL + "/accounts/provider", {
         method: "POST",
-        body: JSON.stringify({ provider }),
+        body: JSON.stringify({ providerAccountId }),
       }),
 
     update: (

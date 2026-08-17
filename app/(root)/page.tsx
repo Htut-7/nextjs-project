@@ -24,6 +24,7 @@ async function page({
   // console.log(response);
   // const { data } = await api.user.getUsersbyId("6a741b9a9c5bae5e5957ed2b");
   // console.log(data);
+  console.log(session);
   return (
     <>
       <div className="flex justify-between items-center p-5">

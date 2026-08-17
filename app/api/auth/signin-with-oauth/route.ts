@@ -9,7 +9,8 @@ import slugify from "slugify";
 
 export async function POST(request: Request) {
   const { provider, providerAccountId, user } = await request.json();
-  await dbConnect;
+  await dbConnect();
+  console.log("MongoDB connected in OAuth route");
 
   const session = await mongoose.startSession();
   session.startTransaction();
