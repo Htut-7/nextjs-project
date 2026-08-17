@@ -1,5 +1,8 @@
 import dbConnect from "@/Components/lib/dbconnect";
-import { handleSuccessResponse } from "@/Components/lib/response";
+import {
+  handleSuccessResponse,
+  handleErrorResponse,
+} from "@/Components/lib/response";
 import signinWithOauthSchema from "@/Components/lib/schema/signinWithOauthSchema";
 import validatebody from "@/Components/lib/validateBodyTemp";
 import Account from "@/database/account.model";
@@ -10,7 +13,6 @@ import slugify from "slugify";
 export async function POST(request: Request) {
   const { provider, providerAccountId, user } = await request.json();
   await dbConnect();
-  console.log("MongoDB connected in OAuth route");
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -25,13 +27,13 @@ export async function POST(request: Request) {
       signinWithOauthSchema
     );
 
-    const { email, name, username, image } = validatedData.data.user;
+    const { email, name, username, image } = validatedData.user;
     let existingUser = await User.findOne({
       email,
     }).session(session);
 
     if (!existingUser) {
-      const [existingUser] = await User.create(
+      const [newUser] = await User.create(
         [
           {
             name,
@@ -46,6 +48,7 @@ export async function POST(request: Request) {
         ],
         { session }
       );
+      existingUser = newUser;
     } else {
       await User.updateOne(
         {
@@ -61,7 +64,7 @@ export async function POST(request: Request) {
     }
 
     const existingAccount = await Account.findOne({
-      userId: existingUser.id,
+      userId: existingUser._id,
       provider,
       providerAccountId,
     }).session(session);
@@ -70,7 +73,7 @@ export async function POST(request: Request) {
       await Account.create(
         [
           {
-            userId: existingUser.id,
+            userId: existingUser._id,
             provider,
             providerAccountId,
             name,
@@ -85,9 +88,12 @@ export async function POST(request: Request) {
       existingUser,
     });
   } catch (error: unknown) {
-    console.log(error);
-    session.abortTransaction();
+    console.error("OAuth error:", error);
+
+    await session.abortTransaction();
+
+    return handleErrorResponse(error);
   } finally {
-    session.endSession();
+    await session.endSession();
   }
 }

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const signinWithOauthSchema = z.object({
-  provider: z.enum(["Github", "Google"]),
+  provider: z.enum(["github", "google"]),
   providerAccountId: z.string(),
   user: z.object({
     name: z.string().min(1),
