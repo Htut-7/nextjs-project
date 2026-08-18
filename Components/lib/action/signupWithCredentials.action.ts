@@ -2,7 +2,7 @@
 
 import dbConnect from "../dbconnect";
 import mongoose from "mongoose";
-import { handleErrorResponse, handleSuccessResponse } from "../response";
+import { actionError } from "../response";
 import validatebody from "../validateBodyTemp";
 import signupSchema from "../schema/signUpSchema";
 import User from "@/database/user.model";
@@ -22,15 +22,17 @@ export async function signupWithCredentials(params: {
 
   try {
     const validatedData = validatebody(params, signupSchema);
-    const { name, email, username, password } = validatedData.data;
+    const { name, email, username, password } = validatedData;
 
-    const existingUser = await User.findOne({ email });
+    const existingEmail = await User.findOne({ email });
 
-    if (existingUser) {
+    if (existingEmail) {
       throw new Error("Email already exists");
     }
 
-    if (existingUser) {
+    const existingUsername = await User.findOne({ username });
+
+    if (existingUsername) {
       throw new Error("Username already exists");
     }
 
@@ -50,7 +52,6 @@ export async function signupWithCredentials(params: {
         {
           userId: newUser._id,
           name,
-          Image,
           password: await bcrypt.hash(password, 10),
           provider: "credentials",
           providerAccountId: email,
@@ -61,10 +62,10 @@ export async function signupWithCredentials(params: {
 
     await session.commitTransaction();
     await signIn("credentials", { email, password, redirect: false });
-    return handleSuccessResponse(newUser);
+    return { success: true };
   } catch (error) {
     await session.abortTransaction();
-    return handleErrorResponse(error);
+    return actionError(error);
   } finally {
     await session.endSession();
   }

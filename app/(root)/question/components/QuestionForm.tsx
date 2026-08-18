@@ -9,7 +9,7 @@ import TagCard from "@/Components/TagCard";
 function QuestionForm() {
   const [value, setValue] = useState("");
   const [tags, setTags] = useState<string[]>(["react", "vue"]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [newTag, setNewTag] = useState("");
 
   const enterHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {

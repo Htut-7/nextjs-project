@@ -1,8 +1,8 @@
-import { ZodSchema, ZodError } from "zod";
+import { ZodSchema, ZodError, ZodType, ZodObject } from "zod";
 
 const validatebody = (
   body: unknown,
-  schema: ZodSchema,
+  schema: ZodObject,
   partial: boolean = false
 ) => {
   const validatedData = partial

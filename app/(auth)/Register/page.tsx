@@ -1,9 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo1.jpg";
-import Input from "@/Components/Input";
 import Button from "../../../Components/Button";
-import AuthForm from "../Components/AuthForm";
+import RegisterForm from "../Components/RegisterForm";
 
 function page() {
   return (
@@ -26,33 +25,7 @@ function page() {
         </div>
       </div>
       <div className="w-2/4 h-screen flex justify-center items-center">
-        <div className="w-[80%] space-y-6">
-          <h3 className="text-xl font-semibold">
-            Sign Up to Trae <span className="text-main">Coder</span> Forum
-          </h3>
-
-          <div>
-            <Input placeholder="Enter your name" label="Name" />
-          </div>
-
-          <div>
-            <Input placeholder="Enter Username" label="Username" />
-          </div>
-
-          <div>
-            <Input placeholder="Enter your Email" label="Email Address" />
-          </div>
-
-          <div>
-            <Input placeholder="Enter your Password" label="Password" />
-          </div>
-
-          <div>
-            <Button variant="normal">Register</Button>
-          </div>
-
-          <AuthForm />
-        </div>
+        <RegisterForm />
       </div>
     </div>
   );
