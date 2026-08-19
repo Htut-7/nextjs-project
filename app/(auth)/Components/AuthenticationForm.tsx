@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
 import AuthForm from "./AuthForm";
-import { signupWithCredentials } from "@/Components/lib/action/signupWithCredentials.action";
 import { useRouter } from "next/navigation";
 import ROUTES from "@/ROUTES";
 
@@ -22,7 +21,13 @@ type FormErrors = {
   password?: string[];
 };
 
-function RegisterForm() {
+function AuthenticationForm({
+  type,
+  serverAction,
+}: {
+  type: "login" | "register";
+  serverAction: Function;
+}) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -34,68 +39,76 @@ function RegisterForm() {
 
   const router = useRouter();
 
-  const register = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setErrors(null);
 
-    const result = await signupWithCredentials(formData);
+    const result = await serverAction(formData);
 
     if (result.success) {
       router.push(ROUTES.HOME);
     }
     if ("details" in result && result.details) {
-      setErrors(result.details as FormErrors);
+      return setErrors(result.details as FormErrors);
     }
     if ("message" in result && result.message === "Email already exists") {
-      setErrors({
+      return setErrors({
         email: [result.message],
       });
     }
     if ("message" in result && result.message === "Username already exists") {
-      setErrors({
+      return setErrors({
         username: [result.message],
       });
     }
+    setErrors({
+      password: [result.message],
+    });
   };
 
   return (
-    <form className="w-[80%] space-y-6" onSubmit={register}>
+    <form className="w-[80%] space-y-6" onSubmit={submit}>
       <h3 className="text-xl font-semibold">
-        Sign Up to Trae <span className="text-main">Coder</span> Forum
+        Sign {type === "login" ? "In" : "Up"} to Trae{" "}
+        <span className="text-main">Coder</span> Forum
       </h3>
 
-      <div>
-        <Input
-          placeholder="Enter your name"
-          label="Name"
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              name: e.target.value,
-            }))
-          }
-        />
-        {errors?.name && (
-          <p className="my-2 text-xs text-red-500">{errors.name[0]}</p>
-        )}
-      </div>
+      {type === "register" && (
+        <>
+          <div>
+            <Input
+              placeholder="Enter your name"
+              label="Name"
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  name: e.target.value,
+                }))
+              }
+            />
+            {errors?.name && (
+              <p className="my-2 text-xs text-red-500">{errors.name[0]}</p>
+            )}
+          </div>
 
-      <div>
-        <Input
-          placeholder="Enter Username"
-          label="Username"
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              username: e.target.value,
-            }))
-          }
-        />
-        {errors?.username && (
-          <p className="my-2 text-xs text-red-500">{errors.username[0]}</p>
-        )}
-      </div>
+          <div>
+            <Input
+              placeholder="Enter Username"
+              label="Username"
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  username: e.target.value,
+                }))
+              }
+            />
+            {errors?.username && (
+              <p className="my-2 text-xs text-red-500">{errors.username[0]}</p>
+            )}
+          </div>
+        </>
+      )}
 
       <div>
         <Input
@@ -132,7 +145,7 @@ function RegisterForm() {
 
       <div>
         <Button variant="normal" type="submit">
-          Register
+          {type === "login" ? "Login" : "Register"}
         </Button>
       </div>
 
@@ -141,4 +154,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default AuthenticationForm;

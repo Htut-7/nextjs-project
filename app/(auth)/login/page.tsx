@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo1.jpg";
-import Input from "@/Components/Input";
-import AuthForm from "../Components/AuthForm";
 import Button from "../../../Components/Button";
+import AuthenticationForm from "../Components/AuthenticationForm";
+import { signInWithCredentials } from "@/Components/lib/action/signInWithCredentials.action";
 
 function page() {
   return (
@@ -26,24 +26,7 @@ function page() {
         </div>
       </div>
       <div className="w-2/4 h-screen flex justify-center items-center">
-        <div className="w-[80%] space-y-6">
-          <h3 className="text-xl font-semibold">
-            Sign into Trae <span className="text-main">Coder</span> Forum
-          </h3>
-          <div>
-            <Input placeholder="Enter your Email" label="Email Address" />
-          </div>
-
-          <div>
-            <Input placeholder="Enter your Password" label="Password" />
-          </div>
-
-          <div>
-            <Button variant="normal">Login</Button>
-          </div>
-
-          <AuthForm />
-        </div>
+        <AuthenticationForm type="login" serverAction={signInWithCredentials} />
       </div>
     </div>
   );

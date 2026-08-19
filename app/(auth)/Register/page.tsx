@@ -2,7 +2,8 @@ import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo1.jpg";
 import Button from "../../../Components/Button";
-import RegisterForm from "../Components/RegisterForm";
+import RegisterForm from "../Components/AuthenticationForm";
+import { signupWithCredentials } from "@/Components/lib/action/signupWithCredentials.action";
 
 function page() {
   return (
@@ -25,7 +26,7 @@ function page() {
         </div>
       </div>
       <div className="w-2/4 h-screen flex justify-center items-center">
-        <RegisterForm />
+        <RegisterForm type="register" serverAction={signupWithCredentials} />
       </div>
     </div>
   );
