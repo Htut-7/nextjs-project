@@ -20,7 +20,7 @@ const tagQuestionSchema = new Schema({
   },
 });
 
-tagQuestionSchema.index({ tags: 1, question: 1 }, { unique: true });
+tagQuestionSchema.index({ tag: 1, question: 1 }, { unique: true });
 
 const tagQuestion =
   models?.tagQuestion || model<ItagQuestion>("tagQuestion", tagQuestionSchema);
