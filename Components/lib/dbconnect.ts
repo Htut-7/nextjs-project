@@ -13,7 +13,6 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  console.log(process.env.MONGODB_URI);
   const MONGODB_URI = process.env.MONGODB_URI!;
 
   if (!MONGODB_URI) {

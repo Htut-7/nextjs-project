@@ -28,7 +28,7 @@ async function page() {
       <div>
         {user && (
           <Image
-            src={user?.image || "default-avatar.png"}
+            src={user?.image || ""}
             alt="logo"
             className="aspect-square rounded-full object-cover"
             width={45}

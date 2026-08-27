@@ -9,11 +9,21 @@ import { Bounce, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import ROUTES from "@/ROUTES";
 import { QuestionCreate } from "@/Components/lib/action/QuestionCreate.action";
+import { Iquestion } from "@/database/question.model";
+import { QuestionEdit } from "@/Components/lib/action/QuestionEdit.action";
 
-function QuestionForm() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [tags, setTags] = useState<string[]>(["react", "vue"]);
+function QuestionForm({
+  question,
+  isEdit = false,
+}: {
+  question?: Iquestion;
+  isEdit: boolean;
+}) {
+  const [title, setTitle] = useState(question?.title ?? "");
+  const [content, setContent] = useState(question?.content ?? "");
+  const [tags, setTags] = useState<string[]>(
+    question?.tags.map((tag) => tag.name) ?? []
+  );
   const [error, setError] = useState<string | null>(null);
   const [newTag, setNewTag] = useState("");
 
@@ -35,16 +45,35 @@ function QuestionForm() {
     e.preventDefault();
 
     try {
+      if (isEdit && question) {
+        let result = await QuestionEdit({
+          questionId: question._id as string,
+          title,
+          content,
+          tags,
+        });
+
+        if (result.success && result.data) {
+          toast.success("Question Updated Successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          router.push(ROUTES.QUESTION_DETAILS(result.data?._id));
+        }
+        return;
+      }
       let result = await QuestionCreate({
         title,
         content,
         tags,
       });
-
-      console.log("QUESTION CREATE RESULT:", result);
-      console.log("SUCCESS:", result.success);
-      console.log("DATA:", result.data);
-      console.log("QUESTION ID:", result.data?._id);
 
       if (result.success && result.data) {
         toast.success("Question Created Successfully", {
@@ -111,7 +140,7 @@ function QuestionForm() {
           </TagCard>
         ))}
       </div>
-      <Button type="submit">Create</Button>
+      <Button type="submit">{isEdit ? "Update" : "Create"}</Button>
     </form>
   );
 }

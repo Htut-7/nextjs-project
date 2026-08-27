@@ -9,6 +9,7 @@ import { actionError } from "../response";
 import Question from "@/database/question.model";
 import tagQuestion from "@/database/tag-question.model";
 import Tags from "@/database/tags.model";
+import User from "@/database/user.model";
 
 export async function QuestionCreate(params: {
   title: string;
@@ -29,7 +30,18 @@ export async function QuestionCreate(params: {
   const { title, content, tags } = validatedData;
 
   const auth_session = await auth();
-  const userId = auth_session?.user?.id;
+
+  if (!auth_session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  const user = await User.findOne({
+    email: auth_session.user.email,
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -40,7 +52,7 @@ export async function QuestionCreate(params: {
         {
           title,
           content,
-          author: userId,
+          author: user._id,
         },
       ],
       { session }

@@ -2,13 +2,13 @@ import { Schema, Types, model, models, Document } from "mongoose";
 
 export interface Iquestion {
   title: string;
-  Content: string;
-  Tags: Types.ObjectId[];
-  Views: string;
-  Upvotes: Number;
-  Downvotes: Number;
-  Answers: Number;
-  Author: Types.ObjectId;
+  content: string;
+  tags: Types.ObjectId[];
+  views: string;
+  upvotes: Number;
+  downvotes: Number;
+  answers: Number;
+  uthor: Types.ObjectId;
 }
 
 export interface IquestionDoc extends Iquestion, Document {}

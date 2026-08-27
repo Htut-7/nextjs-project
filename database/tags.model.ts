@@ -2,7 +2,7 @@ import { Schema, model, models, Document } from "mongoose";
 
 export interface Itag {
   name: string;
-  questions: Number;
+  questions: number;
 }
 
 export interface ItagDoc extends Itag, Document {}
