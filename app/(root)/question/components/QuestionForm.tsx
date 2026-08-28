@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Editor from "@/Components/Editor";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
-import TagCard from "@/Components/TagCard";
+import RemovableTagCard from "@/Components/RemovableTagCard";
 import { Bounce, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import ROUTES from "@/ROUTES";
@@ -31,6 +31,7 @@ function QuestionForm({
 
   const enterHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       if (!tags.includes(newTag)) {
         setTags([...tags, newTag]);
         setNewTag("");
@@ -106,6 +107,12 @@ function QuestionForm({
     }
   };
 
+  const removeTag = (t: string) => {
+    setTags((prevTag) => {
+      return prevTag.filter((eachTag) => eachTag != t);
+    });
+  };
+
   return (
     <form className="space-y-5" onSubmit={submit}>
       <h1 className="text-2xl font-bold">Ask A New Question</h1>
@@ -135,9 +142,9 @@ function QuestionForm({
 
       <div className="mt-5 flex items-center space-x-3">
         {tags.map((t, i) => (
-          <TagCard key={i} href="/filters/react">
+          <RemovableTagCard key={t} onRemove={() => removeTag(t)}>
             {t}
-          </TagCard>
+          </RemovableTagCard>
         ))}
       </div>
       <Button type="submit">{isEdit ? "Update" : "Create"}</Button>

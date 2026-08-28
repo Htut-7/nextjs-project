@@ -34,10 +34,10 @@ export default async function RootLayout({
       lang="en"
       className={` text-white bg-secondary ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <SessionProvider session={session}>
-        <body className=" min-h-full flex flex-col">{children}</body>
-      </SessionProvider>
-      <ClientToast />
+      <body className=" min-h-full flex flex-col">
+        <SessionProvider session={session}>{children}</SessionProvider>
+        <ClientToast />
+      </body>
     </html>
   );
 }
