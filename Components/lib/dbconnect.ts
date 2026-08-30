@@ -1,4 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
+import "@/database/index";
+
 declare global {
   var mongoose: {
     conn: Mongoose | null;

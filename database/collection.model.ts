@@ -11,12 +11,12 @@ const collectionSchema = new Schema(
   {
     author: {
       type: Schema.Types.ObjectId,
-      require: true,
-      ref: "Users",
+      required: true,
+      ref: "User",
     },
     question: {
       type: Schema.Types.ObjectId,
-      require: true,
+      required: true,
       ref: "Question",
     },
   },
@@ -25,5 +25,6 @@ const collectionSchema = new Schema(
 
 collectionSchema.index({ author: 1, question: 1 }, { unique: true });
 
-const collection = models?.Collection || model("collection", collectionSchema);
-export default collection;
+const Collection = models.Collection || model("Collection", collectionSchema);
+
+export default Collection;

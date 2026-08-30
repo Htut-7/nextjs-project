@@ -1,30 +1,33 @@
 import React from "react";
-import Navbar from "../../Components/Navbar";
-import LeftSidebar from "../../Components/LeftSidebar";
-import { FaHome, FaSignOutAlt } from "react-icons/fa";
 import { auth } from "@/auth";
 import Filters from "@/Components/Filters";
 import ThreadCard from "@/Components/ThreadCard";
 import ButtonLink from "@/Components/ButtonLink";
 import ROUTES from "@/ROUTES";
-import fetchHandler from "@/Components/lib/fetchHandler";
-import { api } from "@/Components/lib/api";
+import { GetQuestions } from "@/Components/lib/action/GetQuestions.action";
 
 async function page({
   searchParams,
 }: {
   searchParams: Promise<{
-    search: string | undefined;
-    filter: string | undefined;
+    [key: string]: string;
   }>;
 }) {
   const session = await auth();
-  const { search, filter } = await searchParams;
+  const { page, pageSize, search, filter } = await searchParams;
   // const response = await fetchHandler("http://localhost:3000/api/users");
   // console.log(response);
   // const { data } = await api.user.getUsersbyId("6a741b9a9c5bae5e5957ed2b");
   // console.log(data);
-  console.log(session);
+  const { success, data, message } = await GetQuestions({
+    page: Number(page) || 1,
+    pageSize: Number(page) || 10,
+    search: search || "",
+    filter: filter || "",
+  });
+
+  const { questions } = data || {};
+
   return (
     <>
       <div className="flex justify-between items-center p-5">
@@ -36,7 +39,17 @@ async function page({
         </div>
       </div>
       <Filters />
-      <ThreadCard />
+      {success && data ? (
+        questions && questions.length > 0 ? (
+          questions.map((question, i) => (
+            <ThreadCard question={question} key={i} />
+          ))
+        ) : (
+          <p>No Results Found</p>
+        )
+      ) : (
+        <p>{message}</p>
+      )}
     </>
   );
 }

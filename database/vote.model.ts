@@ -14,7 +14,7 @@ const voteSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "Users",
+      ref: "User",
     },
     type_id: {
       type: Schema.Types.ObjectId,

@@ -5,10 +5,10 @@ export interface Iquestion {
   content: string;
   tags: Types.ObjectId[];
   views: string;
-  upvotes: Number;
-  downvotes: Number;
-  answers: Number;
-  uthor: Types.ObjectId;
+  upvotes: number;
+  downvotes: number;
+  answers: number;
+  author: Types.ObjectId;
 }
 
 export interface IquestionDoc extends Iquestion, Document {}
@@ -48,7 +48,7 @@ const questionSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       require: true,
-      ref: "Users",
+      ref: "User",
     },
   },
   { timestamps: true }
