@@ -25,11 +25,11 @@ async function LeftSidebar() {
 
         <li className="bg-primary px-3 py-3 rounded-xl">
           <Link
-            href={ROUTES.QUESTIONS}
+            href={ROUTES.TAG}
             className="text-[16px] font-bold flex items-center space-x-3.5"
           >
             <FaHome />
-            <span>Newest</span>
+            <span>Tags</span>
           </Link>
         </li>
 

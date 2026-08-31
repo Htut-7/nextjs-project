@@ -5,6 +5,7 @@ const ROUTES = {
   Register: "/Register",
   ASK: "/question/create",
   QUESTION_DETAILS: (id: string) => "/question/" + id,
+  TAG: "/tags",
 };
 
 export default ROUTES;
