@@ -5,6 +5,7 @@ import ThreadCard from "@/Components/ThreadCard";
 import ButtonLink from "@/Components/ButtonLink";
 import ROUTES from "@/ROUTES";
 import { GetQuestions } from "@/Components/lib/action/GetQuestions.action";
+import DataRenderer from "@/Components/DataRenderer";
 
 async function page({
   searchParams,
@@ -21,12 +22,12 @@ async function page({
   // console.log(data);
   const { success, data, message } = await GetQuestions({
     page: Number(page) || 1,
-    pageSize: Number(page) || 10,
+    pageSize: Number(pageSize) || 10,
     search: search || "",
     filter: filter || "",
   });
 
-  const { questions } = data || {};
+  const { questions = [] } = data || {};
 
   return (
     <>
@@ -39,17 +40,14 @@ async function page({
         </div>
       </div>
       <Filters />
-      {success && data ? (
-        questions && questions.length > 0 ? (
-          questions.map((question, i) => (
-            <ThreadCard question={question} key={i} />
-          ))
-        ) : (
-          <p>No Results Found</p>
-        )
-      ) : (
-        <p>{message}</p>
-      )}
+      <DataRenderer
+        success={success}
+        data={questions}
+        errorMessage={message}
+        render={(questions) =>
+          questions.map((question) => <ThreadCard question={question} />)
+        }
+      />
     </>
   );
 }
