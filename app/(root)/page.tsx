@@ -6,6 +6,7 @@ import ButtonLink from "@/Components/ButtonLink";
 import ROUTES from "@/ROUTES";
 import { GetQuestions } from "@/Components/lib/action/GetQuestions.action";
 import DataRenderer from "@/Components/DataRenderer";
+import Link from "next/link";
 
 async function page({
   searchParams,
@@ -45,7 +46,14 @@ async function page({
         data={questions}
         errorMessage={message}
         render={(questions) =>
-          questions.map((question) => <ThreadCard question={question} />)
+          questions.map((question) => (
+            <Link
+              key={question._id.toString()}
+              href={`/question/${question._id}`}
+            >
+              <ThreadCard question={question} />
+            </Link>
+          ))
         }
       />
     </>
