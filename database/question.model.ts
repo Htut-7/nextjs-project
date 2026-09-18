@@ -4,7 +4,7 @@ export interface Iquestion {
   title: string;
   content: string;
   tags: Types.ObjectId[];
-  views: string;
+  views: number;
   upvotes: number;
   downvotes: number;
   answers: number;
@@ -17,11 +17,11 @@ const questionSchema = new Schema(
   {
     title: {
       type: String,
-      require: true,
+      required: true,
     },
     content: {
       type: String,
-      require: true,
+      required: true,
     },
     tags: [
       {

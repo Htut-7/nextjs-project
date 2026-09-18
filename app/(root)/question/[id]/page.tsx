@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import React from "react";
 import TagCard from "@/Components/TagCard";
 import Preview from "@/Components/Preview";
+import { after } from "next/server";
+import { ViewCount } from "@/Components/lib/action/ViewCounts.action";
 
 export default async function page({
   params,
@@ -22,6 +24,12 @@ export default async function page({
     notFound();
   }
 
+  after(async () => {
+    await ViewCount({
+      questionId: id,
+    });
+  });
+
   console.log("QUESTION CONTENT:", question.content);
 
   return (
@@ -40,8 +48,10 @@ export default async function page({
       </div>
       <div className="mt-8 flex flex-wrap gap-2">
         {question.tags.map((tag) => (
-          <TagCard key={tag._id.toString()} href={`/tags/${tag._id}`}>
-            {" "}
+          <TagCard
+            key={tag._id.toString()}
+            href={`/tags/${tag._id.toString()}`}
+          >
             {tag.name}
           </TagCard>
         ))}
