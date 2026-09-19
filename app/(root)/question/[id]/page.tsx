@@ -5,6 +5,7 @@ import TagCard from "@/Components/TagCard";
 import Preview from "@/Components/Preview";
 import { after } from "next/server";
 import { ViewCount } from "@/Components/lib/action/ViewCounts.action";
+import AnswerForm from "@/Components/AnswerForm";
 
 export default async function page({
   params,
@@ -55,6 +56,10 @@ export default async function page({
             {tag.name}
           </TagCard>
         ))}
+      </div>
+
+      <div className="my-3">
+        <AnswerForm questionId={id} />
       </div>
     </div>
   );
