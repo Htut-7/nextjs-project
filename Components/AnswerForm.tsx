@@ -14,11 +14,13 @@ function AnswerForm({ questionId }: { questionId: string }) {
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const { success, data, message } = await CreateAnswer({
+      const result = await CreateAnswer({
         questionId,
         content,
       });
-      if (success || data) {
+      console.log(result);
+      if (result.success) {
+        console.log("About to show toast");
         toast.success("Answer Submitted Successfully", {
           position: "top-center",
           autoClose: 5000,
@@ -31,21 +33,25 @@ function AnswerForm({ questionId }: { questionId: string }) {
           transition: Bounce,
         });
         // router.push(ROUTES.QUESTION_DETAILS(questionId));
+      } else {
+        console.log("Server Action", result.message);
+        toast.error(result.message || "Failed to submit answer");
       }
     } catch (e) {
-      if (e instanceof Error) {
-        toast.error(e.message, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      }
+      //   if (e instanceof Error) {
+      //     toast.error(e.message, {
+      //       position: "top-center",
+      //       autoClose: 5000,
+      //       hideProgressBar: false,
+      //       closeOnClick: false,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //       progress: undefined,
+      //       theme: "dark",
+      //       transition: Bounce,
+      //     });
+      //   }
+      console.log("Client Error", e);
     }
   };
 
