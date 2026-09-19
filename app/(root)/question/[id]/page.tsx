@@ -6,6 +6,8 @@ import Preview from "@/Components/Preview";
 import { after } from "next/server";
 import { ViewCount } from "@/Components/lib/action/ViewCounts.action";
 import AnswerForm from "@/Components/AnswerForm";
+import { GetAnswers } from "@/Components/lib/action/GetAnswers.action";
+import AnswerList from "@/Components/AnswerList";
 
 export default async function page({
   params,
@@ -14,7 +16,7 @@ export default async function page({
 }) {
   const { id } = await params;
 
-  let { data: question, success } = await GetQuestion({
+  let { data: question } = await GetQuestion({
     questionId: id,
     title: "",
     content: "",
@@ -31,7 +33,18 @@ export default async function page({
     });
   });
 
-  console.log("QUESTION CONTENT:", question.content);
+  const {
+    success,
+    message,
+    data: answerData,
+  } = await GetAnswers({
+    page: 1,
+    pageSize: 10,
+    filter: "latest",
+    questionId: id,
+  });
+
+  const { answers = [], totalAnswers = 0 } = answerData || {};
 
   return (
     <div className="p-3">
@@ -56,6 +69,15 @@ export default async function page({
             {tag.name}
           </TagCard>
         ))}
+      </div>
+
+      <div className="my-3">
+        <AnswerList
+          success={success}
+          errorMessage={message}
+          answers={answers}
+          totalAnswers={totalAnswers}
+        />
       </div>
 
       <div className="my-3">
