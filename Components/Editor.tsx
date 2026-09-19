@@ -184,6 +184,7 @@ const Editor = ({
       {label && <label>{label}</label>}
       <div className="flex items-center space-x-3 p-2 rounded-md">
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleBold().run()}
           className={Bold ? "text-main" : ""}
         >
@@ -191,6 +192,7 @@ const Editor = ({
         </button>
 
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleItalic().run()}
           className={Italic ? "text-main" : ""}
         >
@@ -198,6 +200,7 @@ const Editor = ({
         </button>
 
         <button
+          type="button"
           onClick={() =>
             editor?.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -208,6 +211,7 @@ const Editor = ({
           H1
         </button>
         <button
+          type="button"
           onClick={() =>
             editor?.chain().focus().toggleHeading({ level: 2 }).run()
           }
@@ -218,6 +222,7 @@ const Editor = ({
           H2
         </button>
         <button
+          type="button"
           onClick={() =>
             editor?.chain().focus().toggleHeading({ level: 3 }).run()
           }
@@ -229,6 +234,7 @@ const Editor = ({
         </button>
 
         <button
+          type="button"
           onClick={setLink}
           className={editor?.isActive("link") ? "bg-main" : ""}
         >
@@ -236,6 +242,7 @@ const Editor = ({
         </button>
 
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor?.isActive("bulletlist") ? "is-active" : ""}
         >
@@ -243,6 +250,7 @@ const Editor = ({
         </button>
 
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor?.isActive("orderlist") ? "text-main" : ""}
         >
@@ -250,6 +258,7 @@ const Editor = ({
         </button>
 
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor?.isActive("codelowlight") ? "text-main" : ""}
         >
