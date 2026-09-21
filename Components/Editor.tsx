@@ -1,12 +1,13 @@
 "use client";
 
+import { Markdown } from "tiptap-markdown";
 import StarterKit from "@tiptap/starter-kit";
 import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Heading from "@tiptap/extension-heading";
 import { IoIosLink } from "react-icons/io";
 import Link from "@tiptap/extension-link";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
 import { BulletList, ListItem, OrderedList } from "@tiptap/extension-list";
 import { FaCode, FaList } from "react-icons/fa";
@@ -130,12 +131,32 @@ const Editor = ({
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      Markdown.configure({
+        html: false,
+      }),
     ],
-    content: value,
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      const md = editor?.storage?.markdown?.getMarkdown();
+      if (md != value) {
+        onChange(md);
+      }
     },
   });
+
+  useEffect(() => {
+    if (!editor) return;
+    if (typeof value != "string") return;
+
+    try {
+      const md = editor?.storage?.markdown?.getMarkdown();
+
+      if (md != value) {
+        editor.commands.setContent(value);
+      }
+    } catch (e) {
+      editor.commands.clearContent();
+    }
+  }, [value, editor]);
 
   const setLink = useCallback(() => {
     const previousUrl = editor?.getAttributes("link").href;

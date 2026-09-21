@@ -18,7 +18,7 @@ function AnswerForm({ questionId }: { questionId: string }) {
         questionId,
         content,
       });
-      console.log(result);
+      setContent("");
       if (result.success) {
         console.log("About to show toast");
         toast.success("Answer Submitted Successfully", {
@@ -60,7 +60,10 @@ function AnswerForm({ questionId }: { questionId: string }) {
       <div className="mt-3">
         <Editor
           value={content}
-          onChange={(v) => setContent(v)}
+          onChange={(v) => {
+            console.log(v);
+            setContent(v);
+          }}
           label="Any Question"
         />
       </div>
