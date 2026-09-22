@@ -47,12 +47,7 @@ async function page({
         errorMessage={message}
         render={(questions) =>
           questions.map((question) => (
-            <Link
-              key={question._id.toString()}
-              href={`/question/${question._id}`}
-            >
-              <ThreadCard question={question} />
-            </Link>
+            <ThreadCard key={question._id.toString()} question={question} />
           ))
         }
       />

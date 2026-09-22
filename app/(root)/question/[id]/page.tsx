@@ -81,7 +81,11 @@ export default async function page({
       </div>
 
       <div className="my-3">
-        <AnswerForm questionId={id} />
+        <AnswerForm
+          questionId={id}
+          questionTitle={question.title}
+          questionContent={question.content}
+        />
       </div>
     </div>
   );
