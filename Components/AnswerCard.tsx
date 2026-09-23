@@ -1,6 +1,7 @@
 import { Ianswer } from "@/database/answer.model";
 import React from "react";
 import Preview from "./Preview";
+import VoteButtons from "./VoteButtons";
 
 function AnswerCard({ answer }: { answer: Ianswer }) {
   const authorName = ((answer as any)?.author?.name as string) || "Annonymous";
@@ -28,16 +29,12 @@ function AnswerCard({ answer }: { answer: Ianswer }) {
       </div>
 
       <footer className="mt-4 flex items-center justify-between">
-        <div className="flex items-center gap-3 text-sm">
-          <div className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-1 text-slate-600 dark:border-slate-700 dark:text-slate-300">
-            <span className="select-none">▲</span>
-            <span className="tabular-nums">{upvotes}</span>
-          </div>
-          <div className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-1 text-slate-600 dark:border-slate-700 dark:text-slate-300">
-            <span className="select-none">▼</span>
-            <span className="tabular-nums">{downvotes}</span>
-          </div>
-        </div>
+        <VoteButtons
+          type="answer"
+          typeId={answer?._id}
+          initialDownvotes={answer.downvotes}
+          initialUpvotes={answer.upvotes}
+        />
       </footer>
     </article>
   );

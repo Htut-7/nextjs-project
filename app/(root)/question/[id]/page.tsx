@@ -8,6 +8,7 @@ import { ViewCount } from "@/Components/lib/action/ViewCounts.action";
 import AnswerForm from "@/Components/AnswerForm";
 import { GetAnswers } from "@/Components/lib/action/GetAnswers.action";
 import AnswerList from "@/Components/AnswerList";
+import VoteButtons from "@/Components/VoteButtons";
 
 export default async function page({
   params,
@@ -50,9 +51,13 @@ export default async function page({
     <div className="p-3">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">{question.title}</h1>
-        <div className="flex justify-center gap-3 text-xs text-gray-200">
-          <div>{question.upvotes} Likes</div>
-          <div>{question.downvotes} Dislikes</div>
+        <div className="flex justify-center gap-3 text-xs text-gray-200 items-center">
+          <VoteButtons
+            type="question"
+            typeId={id.toString()}
+            initialDownvotes={question.downvotes}
+            initialUpvotes={question.upvotes}
+          />
           <div>{question.answers} Answers</div>
           <div>{question.views} Views</div>
         </div>
