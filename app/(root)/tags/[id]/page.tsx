@@ -44,7 +44,9 @@ async function page({
         data={questions}
         errorMessage={message}
         render={(questions) =>
-          questions.map((question) => <ThreadCard question={question} />)
+          questions.map((question) => (
+            <ThreadCard question={question} key={question._id.toString()} />
+          ))
         }
       />
     </>

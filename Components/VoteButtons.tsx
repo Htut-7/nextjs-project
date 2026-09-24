@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { VoteAction } from "./lib/action/VoteAction.action";
+import { Bounce, toast } from "react-toastify";
 
 function VoteButtons({
   type,
@@ -15,37 +17,81 @@ function VoteButtons({
 }) {
   const [upvotes, setUpVotes] = useState(initialUpvotes);
   const [downvotes, setDownVotes] = useState(initialDownvotes);
-  const [uservotes, setUserVotes] = useState<"upvote" | "downvote" | null>(
-    null
-  );
+  const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
 
-  const handleVote = (voteType: "upvote" | "downvote") => {
-    setUpVotes(100);
-    setDownVotes(100);
-    setUserVotes(voteType);
+  const [isVoting, setIsVoting] = useState(false);
+
+  const handleVote = async (voteType: "upvote" | "downvote") => {
+    try {
+      setIsVoting(true);
+
+      const { success, data, message } = await VoteAction({
+        type,
+        typeId,
+        voteType,
+      });
+
+      if (!success) {
+        toast.error(message || "Failed to vote", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return;
+      }
+
+      if (data) {
+        setUpVotes(data.upvotes);
+        setDownVotes(data.downvotes);
+        setUserVote(data.userVote);
+      }
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Something went wrong", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        transition: Bounce,
+      });
+    } finally {
+      setIsVoting(false);
+    }
   };
 
   return (
     <div className="flex items-center space-x-2 text-xs">
-      <div>
-        <button
-          className={`p-2 border-[1px] border-white space-x-2 rounded-lg ${uservotes === "upvote" ? "border-green-300 text-green-300" : ""}`}
-          onClick={() => handleVote("upvote")}
-        >
-          <span>{upvotes}</span>
-          <span>Likes</span>
-        </button>
-      </div>
+      <button
+        type="button"
+        disabled={isVoting}
+        className={`rounded-lg border border-white p-2 space-x-2 ${
+          userVote === "upvote" ? "border-green-300 text-green-300" : ""
+        }`}
+        onClick={() => handleVote("upvote")}
+      >
+        <span>{upvotes}</span>
+        <span>Likes</span>
+      </button>
 
-      <div>
-        <button
-          className={`p-2 border-[1px] border-white space-x-2 rounded-lg ${uservotes === "downvote" ? "border-red-300 text-red-300" : ""}`}
-          onClick={() => handleVote("downvote")}
-        >
-          <span>{downvotes}</span>
-          <span>Dislikes</span>
-        </button>
-      </div>
+      <button
+        type="button"
+        disabled={isVoting}
+        className={`rounded-lg border border-white p-2 space-x-2 ${
+          userVote === "downvote" ? "border-red-300 text-red-300" : ""
+        }`}
+        onClick={() => handleVote("downvote")}
+      >
+        <span>{downvotes}</span>
+        <span>Dislikes</span>
+      </button>
     </div>
   );
 }

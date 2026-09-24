@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import Question from "@/database/question.model";
 import Answer from "@/database/answer.model";
 import Vote from "@/database/vote.model";
+import User from "@/database/user.model";
 
 export async function VoteAction(params: {
   typeId: string;
@@ -25,18 +26,28 @@ export async function VoteAction(params: {
   details?: object | null;
 }> {
   await dbConnect();
-  const validatedData = validatebody(params, VoteActionSchema);
-  const { typeId, type, voteType } = validatedData;
 
   const session = await mongoose.startSession();
-  session.startTransaction();
 
   try {
+    session.startTransaction();
+    const validatedData = validatebody(params, VoteActionSchema);
+    const { typeId, type, voteType } = validatedData;
     const authSession = await auth();
 
-    const userId = authSession?.user?.id;
+    if (!authSession?.user?.email) {
+      throw new Error("Unauthorized");
+    }
 
-    if (!userId) throw new Error("Unauthorized");
+    const user = await User.findOne({
+      email: authSession.user.email,
+    }).session(session);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const userId = user._id;
 
     const Model = type === "question" ? Question : Answer;
     const item = await Model.findById(typeId).session(session);
@@ -47,7 +58,7 @@ export async function VoteAction(params: {
 
     const existingVote = await Vote.findOne({
       author: userId,
-      typeId,
+      type_id: typeId,
       type,
     }).session(session);
 
@@ -56,7 +67,7 @@ export async function VoteAction(params: {
     let userVote: "upvote" | "downvote" | null = null;
 
     if (existingVote) {
-      if (existingVote.voteType === voteType) {
+      if (existingVote.votetype === voteType) {
         if (voteType === "upvote") {
           newUpvotes = Math.max(0, newUpvotes - 1);
         } else {
@@ -65,14 +76,14 @@ export async function VoteAction(params: {
         await Vote.findByIdAndDelete(existingVote._id).session(session);
         userVote = null;
       } else {
-        if (existingVote.voteType === "upvote") {
+        if (existingVote.votetype === "upvote") {
           newUpvotes = Math.max(0, newUpvotes - 1);
           newDownvotes += 1;
         } else {
           newDownvotes = Math.max(0, newDownvotes - 1);
           newUpvotes += 1;
         }
-        existingVote.voteType = voteType;
+        existingVote.votetype = voteType;
         await existingVote.save({ session });
         userVote = voteType;
       }
@@ -81,9 +92,9 @@ export async function VoteAction(params: {
         [
           {
             author: userId,
-            typeId: typeId,
+            type_id: typeId,
             type,
-            voteType,
+            votetype: voteType,
           },
         ],
         { session }

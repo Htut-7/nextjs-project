@@ -22,8 +22,8 @@ function ThreadCard({ question }: { question: IquestionDoc }) {
       </h1>
 
       <div className="relative z-20 flex flex-wrap gap-3">
-        {question?.tags.map((tag, i) => (
-          <TagCard href={`/filters/${tag?.name}`} key={i}>
+        {question?.tags.map((tag) => (
+          <TagCard href={`/filters/${tag?.name}`} key={tag._id.toString()}>
             {tag.name}
           </TagCard>
         ))}
