@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { VoteAction } from "./lib/action/VoteAction.action";
 import { Bounce, toast } from "react-toastify";
+import { GetUserVote } from "./lib/action/GetUserVote.action";
 
 function VoteButtons({
   type,
@@ -20,6 +21,19 @@ function VoteButtons({
   const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
 
   const [isVoting, setIsVoting] = useState(false);
+
+  useEffect(() => {
+    const fetchUserVote = async () => {
+      const { success, data } = await GetUserVote({
+        type,
+        typeId,
+      });
+      if (success && data) {
+        setUserVote(data.userVote);
+      }
+    };
+    fetchUserVote();
+  }, [type, typeId]);
 
   const handleVote = async (voteType: "upvote" | "downvote") => {
     try {
