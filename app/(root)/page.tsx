@@ -20,7 +20,7 @@ async function page({
   // const response = await fetchHandler("http://localhost:3000/api/users");
   // console.log(response);
   // const { data } = await api.user.getUsersbyId("6a741b9a9c5bae5e5957ed2b");
-  // console.log(data);
+  console.log(session);
   const { success, data, message } = await GetQuestions({
     page: Number(page) || 1,
     pageSize: Number(pageSize) || 10,
