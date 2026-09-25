@@ -9,6 +9,7 @@ import AnswerForm from "@/Components/AnswerForm";
 import { GetAnswers } from "@/Components/lib/action/GetAnswers.action";
 import AnswerList from "@/Components/AnswerList";
 import VoteButtons from "@/Components/VoteButtons";
+import ToogleBookmark from "@/Components/ToogleBookmark";
 
 export default async function page({
   params,
@@ -60,6 +61,9 @@ export default async function page({
           />
           <div>{question.answers} Answers</div>
           <div>{question.views} Views</div>
+          <div>
+            <ToogleBookmark />
+          </div>
         </div>
       </div>
       <div className="my-3">

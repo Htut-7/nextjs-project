@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa6";
 import { VoteAction } from "./lib/action/VoteAction.action";
 import { Bounce, toast } from "react-toastify";
 import { GetUserVote } from "./lib/action/GetUserVote.action";
@@ -82,29 +83,41 @@ function VoteButtons({
   };
 
   return (
-    <div className="flex items-center space-x-2 text-xs">
+    <div className="flex items-center space-x-3 text-sm">
       <button
         type="button"
         disabled={isVoting}
-        className={`rounded-lg border border-white p-2 space-x-2 ${
-          userVote === "upvote" ? "border-green-300 text-green-300" : ""
+        className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${
+          userVote === "upvote"
+            ? "bg-green-500/15 text-green-400 ring-1 ring-green-500/40"
+            : "bg-card/60 text-gray-300 hover:bg-green-500/10 hover:text-green-400"
         }`}
         onClick={() => handleVote("upvote")}
+        title="Upvote"
+        aria-label="Upvote"
       >
-        <span>{upvotes}</span>
-        <span>Likes</span>
+        <FaThumbsUp size={16} />
+        <span className="font-medium tabular-nums min-w-[1.25rem]">
+          {upvotes}
+        </span>
       </button>
 
       <button
         type="button"
         disabled={isVoting}
-        className={`rounded-lg border border-white p-2 space-x-2 ${
-          userVote === "downvote" ? "border-red-300 text-red-300" : ""
+        className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${
+          userVote === "downvote"
+            ? "bg-red-500/15 text-red-400 ring-1 ring-red-500/40"
+            : "bg-card/60 text-gray-300 hover:bg-red-500/10 hover:text-red-400"
         }`}
         onClick={() => handleVote("downvote")}
+        title="Downvote"
+        aria-label="Downvote"
       >
-        <span>{downvotes}</span>
-        <span>Dislikes</span>
+        <FaThumbsDown size={16} />
+        <span className="font-medium tabular-nums min-w-[1.25rem]">
+          {downvotes}
+        </span>
       </button>
     </div>
   );

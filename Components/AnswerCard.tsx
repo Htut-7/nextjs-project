@@ -32,8 +32,8 @@ function AnswerCard({ answer }: { answer: Ianswer }) {
         <VoteButtons
           type="answer"
           typeId={answer?._id}
-          initialDownvotes={answer.downvotes}
-          initialUpvotes={answer.upvotes}
+          initialDownvotes={downvotes}
+          initialUpvotes={upvotes}
         />
       </footer>
     </article>
