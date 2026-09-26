@@ -62,7 +62,7 @@ export default async function page({
           <div>{question.answers} Answers</div>
           <div>{question.views} Views</div>
           <div>
-            <ToogleBookmark />
+            <ToogleBookmark questionId={id} saved={question?.saved} />
           </div>
         </div>
       </div>

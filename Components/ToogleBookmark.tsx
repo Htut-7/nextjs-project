@@ -3,12 +3,37 @@
 import React, { useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { ToogleBookmarkAction } from "./lib/action/ToogleBookmarkAction.action";
+import { toast, Bounce } from "react-toastify";
 
-function ToogleBookmark() {
-  const [isSave, setIsSave] = useState(false);
+function ToogleBookmark({
+  questionId,
+  saved,
+}: {
+  questionId: string;
+  saved: boolean;
+}) {
+  const [isSave, setIsSave] = useState(saved);
 
   const handleSave = async () => {
-    await ToogleBookmarkAction();
+    const { success, data, message } = await ToogleBookmarkAction({
+      questionId,
+    });
+
+    if (success && data) {
+      setIsSave(data.saved);
+    } else {
+      toast.error(message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
   };
 
   return (
