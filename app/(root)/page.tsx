@@ -7,6 +7,8 @@ import ROUTES from "@/ROUTES";
 import { GetQuestions } from "@/Components/lib/action/GetQuestions.action";
 import DataRenderer from "@/Components/DataRenderer";
 import Link from "next/link";
+import CommonFilters from "@/Components/CommonFilters";
+import { DefaultFilters, HomePageFilters } from "@/constant/filter";
 
 async function page({
   searchParams,
@@ -36,6 +38,14 @@ async function page({
         <div className="text-3xl font-bold">
           <h1>All Threads</h1>
         </div>
+
+        <div>
+          <CommonFilters
+            filter={HomePageFilters}
+            defaultFilters={DefaultFilters.HomePageFilters}
+          />
+        </div>
+
         <div>
           <ButtonLink href={ROUTES.ASK}>Create New Thread</ButtonLink>
         </div>
