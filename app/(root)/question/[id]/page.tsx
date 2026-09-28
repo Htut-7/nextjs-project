@@ -10,13 +10,19 @@ import { GetAnswers } from "@/Components/lib/action/GetAnswers.action";
 import AnswerList from "@/Components/AnswerList";
 import VoteButtons from "@/Components/VoteButtons";
 import ToogleBookmark from "@/Components/ToogleBookmark";
+import { DefaultFilters } from "@/constant/filter";
 
 export default async function page({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{
+    [key: string]: string;
+  }>;
 }) {
   const { id } = await params;
+  const { page = 1, pageSize = 10, filter } = await searchParams;
 
   let { data: question } = await GetQuestion({
     questionId: id,
@@ -40,9 +46,9 @@ export default async function page({
     message,
     data: answerData,
   } = await GetAnswers({
-    page: 1,
-    pageSize: 10,
-    filter: "latest",
+    page: Number(page),
+    pageSize: Number(pageSize),
+    filter: filter ?? DefaultFilters.AnswerFilters,
     questionId: id,
   });
 

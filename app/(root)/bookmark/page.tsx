@@ -5,6 +5,8 @@ import ThreadCard from "@/Components/ThreadCard";
 import DataRenderer from "@/Components/DataRenderer";
 import { FaBookmark } from "react-icons/fa6";
 import { GetBookmarkCollection } from "@/Components/lib/action/GetBookmarkCollection.action";
+import CommonFilters from "@/Components/CommonFilters";
+import { CollectionFilters, DefaultFilters } from "@/constant/filter";
 
 async function page({
   searchParams,
@@ -57,6 +59,12 @@ async function page({
 
       <div className="mx-auto max-w-5xl px-5 py-4">
         <Filters />
+        <div className="flex justify-between items-center">
+          <CommonFilters
+            filter={CollectionFilters}
+            defaultFilters={DefaultFilters.CollectionFilters}
+          />
+        </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-5 pb-10">

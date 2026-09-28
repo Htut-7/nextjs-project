@@ -5,6 +5,8 @@ import { GetTags } from "@/Components/lib/action/GetTags.action";
 import TagInfoCard from "@/Components/TagInfoCard";
 import { GetUser } from "@/Components/lib/action/GetUser.action";
 import UserCard from "./components/UserCard";
+import CommonFilters from "@/Components/CommonFilters";
+import { TagFilters, DefaultFilters, UserFilters } from "@/constant/filter";
 
 async function page({
   searchParams,
@@ -27,8 +29,12 @@ async function page({
   return (
     <>
       <div className="flex justify-between items-center p-5">
-        <div className="text-3xl font-bold">
-          <h1>All Users</h1>
+        <div className="flex items-center justify-between p-5">
+          <h1 className="text-3xl font-bold">All Users</h1>
+          <CommonFilters
+            filter={UserFilters}
+            defaultFilters={DefaultFilters.UserFilters}
+          />
         </div>
       </div>
 

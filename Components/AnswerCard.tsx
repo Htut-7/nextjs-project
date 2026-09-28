@@ -29,12 +29,14 @@ function AnswerCard({ answer }: { answer: Ianswer }) {
       </div>
 
       <footer className="mt-4 flex items-center justify-between">
-        <VoteButtons
-          type="answer"
-          typeId={answer?._id}
-          initialDownvotes={downvotes}
-          initialUpvotes={upvotes}
-        />
+        <div>
+          <VoteButtons
+            type="answer"
+            typeId={answer?._id}
+            initialDownvotes={downvotes}
+            initialUpvotes={upvotes}
+          />
+        </div>
       </footer>
     </article>
   );
