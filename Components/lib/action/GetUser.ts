@@ -8,7 +8,7 @@ import Question from "@/database/question.model";
 import Answer from "@/database/answer.model";
 import { actionError } from "../response";
 
-export async function GetUser(params: { userId: string }): Promise<{
+export async function GetUserId(params: { userId: string }): Promise<{
   success: boolean;
   data?: {
     user: Iuser;

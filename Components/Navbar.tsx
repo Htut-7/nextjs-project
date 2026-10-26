@@ -3,10 +3,14 @@ import Image from "next/image";
 import logo from "../public/logo1.jpg";
 import SearchInput from "./SearchInput";
 import { auth } from "@/auth";
+import Link from "next/link";
+import ROUTES from "@/ROUTES";
 
 async function page() {
   let session = await auth();
   let user = session?.user;
+
+  console.log("Session user ID:", user?.id);
 
   return (
     <nav className="flex justify-between px-10 py-6">
@@ -27,13 +31,15 @@ async function page() {
       </div>
       <div>
         {user && (
-          <Image
-            src={user?.image || ""}
-            alt="logo"
-            className="aspect-square rounded-full object-cover"
-            width={45}
-            height={45}
-          />
+          <Link href={ROUTES.PROFILE(user.id as string)}>
+            <Image
+              src={user?.image || ""}
+              alt="logo"
+              className="aspect-square rounded-full object-cover"
+              width={45}
+              height={45}
+            />
+          </Link>
         )}
       </div>
     </nav>

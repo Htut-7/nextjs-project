@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ROUTES from "@/ROUTES";
 
 function UserCard({
   name,
@@ -11,11 +12,6 @@ function UserCard({
   image: string;
   id: string;
 }) {
-  console.log("UserCard:", {
-    name,
-    image,
-    id,
-  });
   const initials = name
     .split(" ")
     .map((n) => n[0])
@@ -26,7 +22,7 @@ function UserCard({
   return (
     <div>
       <Link
-        href={`/users/${id}`}
+        href={ROUTES.PROFILE(id)}
         className="flex flex-col items-center justify-center bg-tertiary p-4 rounded-xl hover:ring-1 hover:ring-main/50 transition-all duration-200 group"
       >
         {image ? (

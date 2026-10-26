@@ -1,4 +1,3 @@
-import { defaultHead } from "next/head";
 import { handleErrorResponse } from "./response";
 
 interface FetchOptions extends RequestInit {
@@ -24,7 +23,7 @@ export default async function fetchHandler(
   const config = {
     ...restOptions,
     headers: {
-      ...defaultHead,
+      ...defaultHeaders,
       ...customHeaders,
     },
     signal: controller.signal,

@@ -6,9 +6,9 @@ export interface Iuser {
   email: string;
   bio?: string;
   image?: string;
-  Location?: string;
-  Portfolio?: string;
-  Reputation?: string;
+  location?: string;
+  portfolio?: string;
+  reputation?: number;
 }
 
 export interface Iuserdoc extends Iuser, Document {}
