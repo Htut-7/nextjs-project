@@ -44,7 +44,7 @@ export async function GetUserQuestion(params: {
       data: {
         question: JSON.parse(JSON.stringify(questions)),
         isNext,
-      }
+      },
     };
   } catch (e) {
     return actionError(e);
