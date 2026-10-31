@@ -7,6 +7,8 @@ import { FaBookmark } from "react-icons/fa6";
 import { GetBookmarkCollection } from "@/Components/lib/action/GetBookmarkCollection.action";
 import CommonFilters from "@/Components/CommonFilters";
 import { CollectionFilters, DefaultFilters } from "@/constant/filter";
+import { redirect } from "next/navigation";
+import ROUTES from "@/ROUTES";
 
 async function page({
   searchParams,
@@ -16,6 +18,11 @@ async function page({
   }>;
 }) {
   const session = await auth();
+
+  if (!session) {
+    redirect(ROUTES.LOGIN);
+  }
+
   const { page, pageSize, search, filter } = await searchParams;
   console.log(session);
   const { success, data, message } = await GetBookmarkCollection({

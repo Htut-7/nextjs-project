@@ -5,6 +5,7 @@ import ROUTES from "@/ROUTES";
 
 import { auth, signOut } from "@/auth";
 import { redirect } from "next/navigation";
+import SidebarLink from "@/Components/SidebarLink";
 
 async function LeftSidebar() {
   let session = await auth();
@@ -13,45 +14,25 @@ async function LeftSidebar() {
   return (
     <div className="w-1/5 px-5 py-2">
       <ul className="space-y-6">
-        <li className="bg-main px-3 py-3 rounded-xl">
-          <Link
-            href={ROUTES.HOME}
-            className="text-[16px] font-bold flex items-center space-x-3.5"
-          >
-            <FaHome />
-            <span>Home</span>
-          </Link>
-        </li>
+        <SidebarLink href={ROUTES.HOME}>
+          <FaHome />
+          <span>Home</span>
+        </SidebarLink>
 
-        <li className="bg-primary px-3 py-3 rounded-xl">
-          <Link
-            href={ROUTES.TAG}
-            className="text-[16px] font-bold flex items-center space-x-3.5"
-          >
-            <FaHome />
-            <span>Tags</span>
-          </Link>
-        </li>
+        <SidebarLink href={ROUTES.TAG}>
+          <FaHome />
+          <span>Tags</span>
+        </SidebarLink>
 
-        <li className="bg-main px-3 py-3 rounded-xl">
-          <Link
-            href={ROUTES.BOOKMARK}
-            className="text-[16px] font-bold flex items-center space-x-3.5"
-          >
-            <FaHome />
-            <span>Bookmark</span>
-          </Link>
-        </li>
+        <SidebarLink href={ROUTES.BOOKMARK}>
+          <FaHome />
+          <span>Bookmark</span>
+        </SidebarLink>
 
-        <li className="bg-main px-3 py-3 rounded-xl">
-          <Link
-            href={ROUTES.COMMUNITY}
-            className="text-[16px] font-bold flex items-center space-x-3.5"
-          >
-            <FaHome />
-            <span>Community</span>
-          </Link>
-        </li>
+        <SidebarLink href={ROUTES.COMMUNITY}>
+          <FaHome />
+          <span>Community</span>
+        </SidebarLink>
 
         {!user && (
           <li className=" px-3 py-3 rounded-xl border-2 border-main">
